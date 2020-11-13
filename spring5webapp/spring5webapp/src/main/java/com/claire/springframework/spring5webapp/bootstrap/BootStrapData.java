@@ -2,8 +2,10 @@ package com.claire.springframework.spring5webapp.bootstrap;
 
 import com.claire.springframework.spring5webapp.domain.Author;
 import com.claire.springframework.spring5webapp.domain.Book;
+import com.claire.springframework.spring5webapp.domain.Publisher;
 import com.claire.springframework.spring5webapp.repositories.AuthorRepository;
 import com.claire.springframework.spring5webapp.repositories.BookRepository;
+import com.claire.springframework.spring5webapp.repositories.PublisherRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -15,10 +17,12 @@ public class BootStrapData implements CommandLineRunner {
 
     private final AuthorRepository authorRepository;
     private final BookRepository bookRepository;
+    private final PublisherRepository publisherRepository;
 
-    public BootStrapData(AuthorRepository authorRepository, BookRepository bookRepository) {
+    public BootStrapData(AuthorRepository authorRepository, BookRepository bookRepository, PublisherRepository publisherRepository) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
+        this.publisherRepository = publisherRepository;
     }
 
     @Override
@@ -41,6 +45,12 @@ public class BootStrapData implements CommandLineRunner {
 
         System.out.println("Started in Bootstrap");
         System.out.println("Number of Books: " + bookRepository.count());
+
+        Publisher harper = new Publisher("Harper Collins", "New York, New York, 10007");
+        publisherRepository.save(harper);
+
+        System.out.println("Number of publisher: " + publisherRepository.count());
+
 
     }
 }
