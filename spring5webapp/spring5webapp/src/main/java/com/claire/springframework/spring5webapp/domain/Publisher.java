@@ -1,9 +1,9 @@
 package com.claire.springframework.spring5webapp.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by claire on 13/11/20
@@ -18,10 +18,13 @@ public class Publisher {
     private String name;
     private String address;
 
+    @OneToMany
+    @JoinColumn(name = "publisher_id")
+    private Set<Book> books = new HashSet<>();
 
     public Publisher(){
-
     }
+
 
     public Publisher(String name, String address) {
         this.name = name;
@@ -66,4 +69,13 @@ public class Publisher {
                 ", name = " + name +
                 ", address = " + address + " }";
     }
+
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
+    }
+
 }
